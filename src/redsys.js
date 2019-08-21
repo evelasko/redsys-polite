@@ -14,6 +14,7 @@ class Redsys {
       "DS_MERCHANT_CURRENCY": payment.currency,
       "DS_MERCHANT_TRANSACTIONTYPE": this.transaction_type,
       "DS_MERCHANT_TERMINAL": this.terminal,
+      "DS_MERCHANT_MERCHANTDATA": payment.data,
       "DS_MERCHANT_MERCHANTURL": payment.redirect_urls.merchant_url,
       "DS_MERCHANT_URLOK": payment.redirect_urls.ok_url,
       "DS_MERCHANT_URLKO": payment.redirect_urls.cancel_url,

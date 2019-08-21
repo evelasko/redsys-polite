@@ -1,4 +1,5 @@
 /* jshint esversion:6 */
+import { stringify } from "javascript-stringify";
 
 var Payment = function(options){
     Object.assign(this, options);
@@ -15,6 +16,14 @@ export default class PaymentBuilder {
         ok_url: "",
         cancel_url: ""
     };
+  }
+  setData(data){
+      try {
+        this.data = JSON.stringify(data)
+      } catch(e) {
+          this.data = stringify(data)
+      }
+      return this;
   }
   setTotal(total){
       this.total = parseInt(total * 100);

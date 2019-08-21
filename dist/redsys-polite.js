@@ -576,7 +576,7 @@ var PaymentBuilder = function () {
     function PaymentBuilder() {
         _classCallCheck(this, PaymentBuilder);
 
-        this.currency = 978; // for euros
+        this.currency = "978"; // for euros
         this.description = "";
         this.data = "";
         this.transaction_type = 0;
@@ -600,16 +600,15 @@ var PaymentBuilder = function () {
     }, {
         key: "setTotal",
         value: function setTotal(total) {
-            this.total = parseInt(total * 100);
+            this.total = parseInt(total * 100).toString();
             return this;
         }
     }, {
         key: "setOrderId",
         value: function setOrderId(id) {
-            function zfill(num, len) {
-                return (Array(len).join("0") + num).slice(-len);
-            }
-            this.order_id = zfill(id, 8);
+            // function zfill(num, len) {return (Array(len).join("0") + num).slice(-len);}
+            // this.order_id = zfill(id,8);
+            this.order_id = id;
             return this;
         }
     }, {
@@ -989,11 +988,9 @@ var Redsys = function () {
         "DS_MERCHANT_MERCHANTURL": payment.redirect_urls.merchant_url,
         "DS_MERCHANT_URLOK": payment.redirect_urls.ok_url,
         "DS_MERCHANT_URLKO": payment.redirect_urls.cancel_url,
-        'DS_MERCHANT_CONSUMERLANGUAGE': '001',
-        'DS_MERCHANT_TITULAR': this.titular,
-        'DS_MERCHANT_MERCHANTNAME': this.name,
-        'DS_MERCHANT_IDENTIFIER': this.setPayByReference,
-        'DS_MERCHANT_DIRECTPAYMENT': this.directPayment
+        "DS_MERCHANT_CONSUMERLANGUAGE": this.lang || "0",
+        "DS_MERCHANT_TITULAR": this.titular,
+        "DS_MERCHANT_MERCHANTNAME": this.name
         // Test code
         //"DS_MERCHANT_PAN":"4548812049400004",
         //"DS_MERCHANT_EXPIRYDATE":"1220",
@@ -1018,8 +1015,8 @@ var Redsys = function () {
       return new Buffer(hexMac256, 'hex').toString('base64');
     }
   }, {
-    key: "_decodeNotifiedMerchantParams",
-    value: function _decodeNotifiedMerchantParams(signature, merchantData) {
+    key: "decodeNotifiedMerchantParams",
+    value: function decodeNotifiedMerchantParams(signature, merchantData) {
       var _this = this;
 
       return new Promise(function (resolve, reject) {
@@ -1086,6 +1083,12 @@ var RedsysBuilder = function () {
     key: "setName",
     value: function setName(name) {
       this.name = name;
+      return this;
+    }
+  }, {
+    key: "setLanguage",
+    value: function setLanguage(lang) {
+      this.lang = lang;
       return this;
     }
   }, {

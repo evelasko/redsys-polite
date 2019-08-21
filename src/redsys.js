@@ -79,7 +79,7 @@ class Redsys {
 export default class RedsysBuilder {
   constructor() {
     this.name = "Default-Redsys";
-    this.terminal = "1";
+    this.terminal = "2";
     this.language = "auto";
     this.transaction_type = "0";
     this.setPayByReference = '';

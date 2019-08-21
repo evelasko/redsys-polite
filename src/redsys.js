@@ -18,11 +18,9 @@ class Redsys {
       "DS_MERCHANT_MERCHANTURL": payment.redirect_urls.merchant_url,
       "DS_MERCHANT_URLOK": payment.redirect_urls.ok_url,
       "DS_MERCHANT_URLKO": payment.redirect_urls.cancel_url,
-      'DS_MERCHANT_CONSUMERLANGUAGE': '001',
-      'DS_MERCHANT_TITULAR': this.titular,
-      'DS_MERCHANT_MERCHANTNAME': this.name,
-      'DS_MERCHANT_IDENTIFIER': this.setPayByReference,
-      'DS_MERCHANT_DIRECTPAYMENT': this.directPayment
+      "DS_MERCHANT_CONSUMERLANGUAGE": this.lang || "0",
+      "DS_MERCHANT_TITULAR": this.titular,
+      "DS_MERCHANT_MERCHANTNAME": this.name,
       // Test code
       //"DS_MERCHANT_PAN":"4548812049400004",
       //"DS_MERCHANT_EXPIRYDATE":"1220",
@@ -45,7 +43,7 @@ class Redsys {
     return new Buffer(hexMac256, 'hex').toString('base64');
   }
 
-  _decodeNotifiedMerchantParams(signature, merchantData){
+  decodeNotifiedMerchantParams(signature, merchantData){
     return new Promise((resolve,reject) =>{
       let decodedData = JSON.parse(new Buffer(merchantData,'base64'));
       let key = this.encodeOrder(decodedData.Ds_Order, this.secret);
@@ -97,6 +95,10 @@ export default class RedsysBuilder {
   }
   setName(name) {
     this.name = name;
+    return this;
+  }
+  setLanguage(lang) {
+    this.lang = lang;
     return this;
   }
   setTitular(titular) {

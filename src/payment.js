@@ -7,7 +7,7 @@ var Payment = function(options){
 
 export default class PaymentBuilder {
   constructor(){
-    this.currency = 978; // for euros
+    this.currency = "978"; // for euros
     this.description = "";
     this.data = "";
     this.transaction_type = 0;
@@ -26,12 +26,13 @@ export default class PaymentBuilder {
       return this;
   }
   setTotal(total){
-      this.total = parseInt(total * 100);
+      this.total = parseInt(total * 100).toString();
       return this;
   }
   setOrderId(id){
-      function zfill(num, len) {return (Array(len).join("0") + num).slice(-len);}
-      this.order_id = zfill(id,8);
+      // function zfill(num, len) {return (Array(len).join("0") + num).slice(-len);}
+      // this.order_id = zfill(id,8);
+      this.order_id = id
       return this;
   }
   setDescription(description){
